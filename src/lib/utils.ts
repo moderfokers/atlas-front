@@ -20,7 +20,7 @@ export function getJSONCookie<TCookieFormat>(name: string) {
   return JSON.parse(decodedCookie || "{}") as TCookieFormat;
 }
 
-export function deepMerge(target: any, ...sources: any[]): any {
+export function deepMerge<T = any>(target: any, ...sources: any[]): T {
   if (!sources.length) return target;
   const source = sources.shift();
 
@@ -35,7 +35,7 @@ export function deepMerge(target: any, ...sources: any[]): any {
     }
   }
 
-  return deepMerge(target, ...sources);
+  return deepMerge(target, ...sources) as T;
 }
 
 export function isStringArray(value: unknown): value is string[] {

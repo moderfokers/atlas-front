@@ -84,7 +84,7 @@ class RequestServiceClass {
 
     const fetchConfig = {
       ...config.fetchConfig,
-      ...{ ...this.buildAccessTokenHeader() },
+      ...this.buildAccessTokenHeader(),
       ...axiosConfig,
     };
 
