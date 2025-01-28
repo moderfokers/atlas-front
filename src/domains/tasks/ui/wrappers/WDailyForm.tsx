@@ -14,7 +14,6 @@ import { useCrudHandler } from "../../../../hooks/useCrudHandler";
 import { IRequest } from "@/domains/requests/ui/wrappers/WRequestForm";
 import { ITask } from "@/domains/requests/ui/wrappers/WTaskForm";
 import React from "react";
-import { Separator } from "@/components/ui/separator";
 import { DailyCalendarSelector } from "../components/DailyCalendar";
 import {
   IDailyControlInput,
@@ -105,11 +104,9 @@ export const WDailyForm = ({
 
     formData.append("data", valuesBlob);
     if (initialPhoto) formData.append("initialPhoto", initialPhoto as File);
-    if (finalPhoto) formData.append("finalPhoto", initialPhoto as File);
+    if (finalPhoto) formData.append("finalPhoto", finalPhoto as File);
     edit(formData);
   };
-
-  // const { execute } = useFetch({ action: getDailyControl });
 
   const onSelectDateHandler = (date: Date) => {
     setDate(date);

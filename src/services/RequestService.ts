@@ -16,15 +16,14 @@ export interface IFetchResponse<ResponseType> {
   data?: ResponseType;
 }
 
-// const transformAtlasFetchConfigToAxios = ({
-//   fetchConfig,
-// }: {
-//   fetchConfig: AtlasFetchConfig;
-// }): AxiosRequestConfig<any> => {
-//   return {
-//     ...(fetchConfig as Partial<AxiosRequestConfig<any>>),
-//   };
-// };
+const transformAtlasFetchConfigToAxios = (
+  fetchConfig: AtlasFetchConfig
+): AxiosRequestConfig<any> => {
+  return {
+    baseURL: fetchConfig.baseUrl,
+    ...(fetchConfig as Partial<AxiosRequestConfig<any>>),
+  };
+};
 
 class RequestServiceClass {
   private buildAccessTokenHeader() {
@@ -35,7 +34,6 @@ class RequestServiceClass {
 
     return {
       headers: {
-        "Content-Type": "application/json",
         [config.authHeader || "X-Auth"]: `Bearer ${accessToken.value}`,
       },
     };
@@ -84,16 +82,21 @@ class RequestServiceClass {
   ): Promise<IFetchResponse<ResponseType>> {
     const config = ConfigService.getConfig();
 
-    const fetchConfig = deepMerge(
-      this.buildAccessTokenHeader(),
-      { ...config.fetchConfig },
-      { ...axiosConfig }
-    );
+    const fetchConfig = {
+      ...config.fetchConfig,
+      ...{ ...this.buildAccessTokenHeader() },
+      ...axiosConfig,
+    };
+
+    // delete fetchConfig.headers["Content-Type"];
 
     const fullPath = `${config.fetchConfig.baseUrl}${input}`;
 
     try {
-      const response = await axios({ ...fetchConfig, url: fullPath });
+      const response = await axios(
+        fullPath,
+        transformAtlasFetchConfigToAxios({ ...fetchConfig })
+      );
       const isOk = response.status >= 200 && response.status < 300;
       if (!isOk) {
         return {
