@@ -88,8 +88,6 @@ class RequestServiceClass {
       ...axiosConfig,
     };
 
-    // delete fetchConfig.headers["Content-Type"];
-
     const fullPath = `${config.fetchConfig.baseUrl}${input}`;
 
     try {
