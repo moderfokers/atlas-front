@@ -9,12 +9,14 @@ import {
 } from "@/domains/machines/data/machine-entities";
 import { IOperator } from "@/domains/users/ui/wrappers/WUserForm";
 import { ICost } from "@/domains/costs/data/cost-columns";
+import { ITask } from "../../ui/wrappers/WTaskForm";
 
 export interface IGetTaskOuput {
   operators: IOperator[];
   machineries: IMachine[];
   costCenters: ICost[];
   request: IRequest;
+  task: ITask;
 }
 
 export async function getRequestEditView({ id }: { id: number }) {

@@ -24,7 +24,7 @@ export interface IModule {
 const MODULES = ["request", "client", "project", "cost", "user", "machine"];
 
 const getModule = () => {
-  if (!window) return {};
+  if (window === undefined) return {};
   const url = window.location.pathname;
   const _module = MODULES.find((__module) => url.includes(__module));
   return _module;

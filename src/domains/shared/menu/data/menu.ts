@@ -1,6 +1,7 @@
 import {
   ArchiveRestore,
   BookUser,
+  CalendarClock,
   Forklift,
   HandCoins,
   Handshake,
@@ -67,6 +68,14 @@ const MENU_TREE: IMenuItem[] = [
     url: "/hub/users",
     permissionId: "user_view",
     icon: BookUser,
+  },
+
+  {
+    id: "DAILY_CONTROL_VIEW",
+    title: "Control diario",
+    url: "/hub/daily_controls",
+    permissionId: "tasks_view",
+    icon: CalendarClock,
   },
 ];
 export { MENU_TREE };

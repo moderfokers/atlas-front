@@ -1,6 +1,6 @@
 import { useFormStore } from "@/domains/shared/form/core/hooks/useFormStore";
 import { useToast } from "@/hooks/useToast";
-import { IGenericOutput, useFetch } from "@/hooks/useFetch";
+import { IGenericOutput } from "@/hooks/useFetch";
 import { useShallow } from "zustand/shallow";
 
 export interface ICRUDHandler<O> {

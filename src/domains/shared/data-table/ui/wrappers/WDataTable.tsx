@@ -23,7 +23,6 @@ import {
 } from "@tanstack/react-table";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import React from "react";
-import { WTableActions } from "./WTableActions";
 import { buildCommonColumns } from "../../core/use-cases/buildCommonColumns";
 
 export interface IActionsConfig<I, O = void> {
@@ -33,7 +32,7 @@ export interface IActionsConfig<I, O = void> {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  actionsConfig: IActionsConfig<TData>;
+  actionsConfig: IActionsConfig<TData> | null;
 }
 
 export function WDataTable<TData, TValue>({
@@ -45,7 +44,9 @@ export function WDataTable<TData, TValue>({
 
   const table = useReactTable({
     data,
-    columns: buildCommonColumns(columns, actionsConfig),
+    columns: actionsConfig
+      ? buildCommonColumns(columns, actionsConfig)
+      : columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,

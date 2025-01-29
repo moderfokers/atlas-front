@@ -20,7 +20,7 @@ export function getJSONCookie<TCookieFormat>(name: string) {
   return JSON.parse(decodedCookie || "{}") as TCookieFormat;
 }
 
-export function deepMerge(target: any, ...sources: any[]): any {
+export function deepMerge<T = any>(target: any, ...sources: any[]): T {
   if (!sources.length) return target;
   const source = sources.shift();
 
@@ -35,7 +35,7 @@ export function deepMerge(target: any, ...sources: any[]): any {
     }
   }
 
-  return deepMerge(target, ...sources);
+  return deepMerge(target, ...sources) as T;
 }
 
 export function isStringArray(value: unknown): value is string[] {
@@ -47,4 +47,17 @@ export function isStringArray(value: unknown): value is string[] {
 export function injectValueInList(list: string[], value: string) {
   if (list.includes(value)) return list;
   return [value, ...list];
+}
+
+export function areDatesEqual(date1: Date, date2: Date): boolean {
+  return (
+    date1.setHours(0, 0, 0, 0).valueOf() ===
+    date2.setHours(0, 0, 0, 0).valueOf()
+  );
+}
+
+export function buildHumanDate(date: Date) {
+  return `${date.getUTCDate()}/${
+    date.getUTCMonth() + 1
+  }/${date.getUTCFullYear()}`;
 }

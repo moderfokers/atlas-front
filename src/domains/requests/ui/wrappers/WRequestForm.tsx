@@ -22,6 +22,9 @@ import {
 } from "@/domains/machines/data/machine-entities";
 import { WSelect } from "@/domains/shared/form/ui/wrappers/WSelect";
 import { redirect } from "next/navigation";
+import { NavigationService } from "@/services/NavigationService";
+
+import { taskSchema } from "./WTaskForm";
 
 export interface IRequestsOutput {
   requests: IRequest[];
@@ -38,6 +41,7 @@ export const requestFormSchema = z.object({
   status: requestStatusSchema.nullable(),
   project: projectSchema,
   machineryClass: machineClassSchema,
+  task: taskSchema.optional(),
 });
 
 const defaultRequestValues = {
@@ -65,7 +69,9 @@ export const WRequestForm = ({
     add: {
       action: addRequest,
       onSuccess: {
-        handler: () => redirect("/hub/requests"),
+        handler: () => {
+          NavigationService.redirect("/hub/requests");
+        },
         message: "👍 Solicitud guardada satisfactoriamente",
       },
     },

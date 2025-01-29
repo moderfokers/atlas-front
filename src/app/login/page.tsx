@@ -8,6 +8,8 @@ import {
 import Image from "next/image";
 import logo from "../../../public/atlas.png";
 import heroBack from "../../../public/back.webp";
+import heroBack2 from "../../../public/back2.jpg";
+import heroBack3 from "../../../public/back3.avif";
 import dynamic from "next/dynamic";
 
 import AtlasPowered from "../../../public/logo_v1.png";
@@ -30,11 +32,11 @@ export default async function Login() {
         <Image
           alt="Hero background"
           // src={data.urls.full || heroBack}
-          src={heroBack}
+          src={heroBack3}
           width={0}
           // fill
           placeholder="blur"
-          blurDataURL={heroBack.src}
+          blurDataURL={heroBack3.src}
           height={0}
           className="w-full h-full object-cover"
           priority

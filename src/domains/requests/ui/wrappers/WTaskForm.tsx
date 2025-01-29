@@ -31,6 +31,8 @@ import { IRequest } from "./WRequestForm";
 import { ICost } from "@/domains/costs/data/cost-columns";
 import { Separator } from "@/components/ui/separator";
 import { WSelectList } from "@/domains/shared/form/ui/wrappers/WSelectList";
+import { NavigationService } from "@/services/NavigationService";
+import { userFormSchema } from "@/domains/users/data/user-entites";
 
 const getDefaultTaskValues = (request: IRequest) => {
   return {
@@ -42,10 +44,12 @@ const getDefaultTaskValues = (request: IRequest) => {
 };
 
 export const taskSchema = z.object({
+  id: z.number().optional(),
   requestId: z.number().optional(),
-  operator: operatorSchema,
+  operator: z.intersection(operatorSchema, userFormSchema),
   machinery: machineFormSchema,
   costCenter: costCenterSchema,
+  // request: z.lazy(() => requestFormSchema.optional()),
 });
 
 export type ITask = z.infer<typeof taskSchema>;
@@ -57,12 +61,13 @@ export const WTaskForm = ({
   operators,
   machineries,
   costCenters,
+  task
 }: IWRequestFormProps) => {
   const { add } = useCrudHandler<ITask>({
     add: {
       action: addTask,
       onSuccess: {
-        handler: () => redirect("/hub/requests"),
+        handler: () => NavigationService.redirect("/hub/requests"),
         message: "👍 Solicitud guardada satisfactoriamente",
       },
     },

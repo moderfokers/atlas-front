@@ -1,4 +1,3 @@
-
 export const NAVIGATION_MAP = [
   {
     url: "/hub",
@@ -75,5 +74,9 @@ export const NAVIGATION_MAP = [
   {
     url: "/hub/requests/*",
     title: "Nueva asignación",
+  },
+  {
+    url: "/hub/tasks/*",
+    title: "Control diario",
   },
 ];

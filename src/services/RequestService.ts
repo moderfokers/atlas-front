@@ -1,6 +1,8 @@
 import { ConfigService } from "./ConfigService";
 import { cookies } from "next/headers";
 import { deepMerge } from "@/lib/utils";
+import axios, { AxiosRequestConfig } from "axios";
+import { AtlasFetchConfig } from "types/config";
 
 export interface IGenericRequestError {
   status: number;
@@ -14,6 +16,15 @@ export interface IFetchResponse<ResponseType> {
   data?: ResponseType;
 }
 
+const transformAtlasFetchConfigToAxios = (
+  fetchConfig: AtlasFetchConfig
+): AxiosRequestConfig<any> => {
+  return {
+    baseURL: fetchConfig.baseUrl,
+    ...(fetchConfig as Partial<AxiosRequestConfig<any>>),
+  };
+};
+
 class RequestServiceClass {
   private buildAccessTokenHeader() {
     const config = ConfigService.getConfig();
@@ -23,7 +34,6 @@ class RequestServiceClass {
 
     return {
       headers: {
-        "Content-Type": "application/json",
         [config.authHeader || "X-Auth"]: `Bearer ${accessToken.value}`,
       },
     };
@@ -36,9 +46,9 @@ class RequestServiceClass {
     const config = ConfigService.getConfig();
 
     const fetchConfig = deepMerge(
+      this.buildAccessTokenHeader(),
       { ...config.fetchConfig },
-      { ...init },
-      this.buildAccessTokenHeader()
+      { ...init }
     );
 
     const fullPath = `${config.fetchConfig.baseUrl}${input}`;
@@ -52,6 +62,47 @@ class RequestServiceClass {
         };
       }
       const { data } = (await response.json()) as { data: ResponseType };
+      return {
+        status: response.status,
+        data,
+      };
+    } catch (error) {
+      console.log(error);
+
+      return {
+        status: 500,
+        error: (error as string) || "GENERIC_ERROR",
+      };
+    }
+  }
+
+  public async axios<ResponseType>(
+    input: string,
+    axiosConfig?: AxiosRequestConfig<any>
+  ): Promise<IFetchResponse<ResponseType>> {
+    const config = ConfigService.getConfig();
+
+    const fetchConfig = {
+      ...config.fetchConfig,
+      ...this.buildAccessTokenHeader(),
+      ...axiosConfig,
+    };
+
+    const fullPath = `${config.fetchConfig.baseUrl}${input}`;
+
+    try {
+      const response = await axios(
+        fullPath,
+        transformAtlasFetchConfigToAxios({ ...fetchConfig })
+      );
+      const isOk = response.status >= 200 && response.status < 300;
+      if (!isOk) {
+        return {
+          status: response.status,
+          error: response.statusText,
+        };
+      }
+      const { data } = response as { data: ResponseType };
       return {
         status: response.status,
         data,
