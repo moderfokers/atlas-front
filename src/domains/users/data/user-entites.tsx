@@ -30,7 +30,7 @@ export const userFormSchema = z
     const isEditing = Boolean(data.id);
     const passwordPolice = data.password === data.password2;
     const isOperator = data.role?.id === 2;
-    const invalidPassword = !data.password || !data.password2;
+    const invalidPassword = !Boolean(data.password) || !Boolean(data.password2);
 
     if (!isOperator) return true;
 
@@ -45,7 +45,7 @@ export const userFormSchema = z
       })
       .find(Boolean);
 
-    if (!isEditing && (!passwordPolice || !invalidPassword)) {
+    if (!isEditing && (!passwordPolice || invalidPassword)) {
       return ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Las contraseñas no coinciden",
