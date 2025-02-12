@@ -14,10 +14,10 @@ import { WSubmit } from "@/domains/shared/form/ui/wrappers/WSubmit";
 // import { useEffect } from "react";
 
 const formSchema = z.object({
-  email: z.string().min(1, "requerido").email({
+  email: z.string().min(1, "Requerido").email({
     message: "Esto no es un email",
   }),
-  password: z.string().min(1, "requerido"),
+  password: z.string().min(1, "Requerido"),
 });
 
 export type TFormData = z.infer<typeof formSchema>;

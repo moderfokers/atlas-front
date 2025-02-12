@@ -1,16 +1,9 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 import { IRequest } from "../wrappers/WRequestForm";
 import { Badge } from "@/components/ui/badge";
 
 import Link from "next/link";
-import { Separator } from "@/components/ui/separator";
 
 interface IRequestItemProps extends IRequest {
   className?: string;
@@ -18,7 +11,6 @@ interface IRequestItemProps extends IRequest {
 }
 
 export const RequestItem = (props: IRequestItemProps) => {
-  // Request
   const {
     id,
     status,
@@ -30,24 +22,13 @@ export const RequestItem = (props: IRequestItemProps) => {
     readonly = false,
   } = props;
 
-  const titleFragment = (
-    <span className="text-lg underline font-semibold text-primary">
-      Solicitud #{id}
-    </span>
-  );
-
   return (
     <Card className={className}>
       <CardContent className="text-sm p-4 pt-2">
         <div className="flex flex-col md:flex-row">
           <div className=" p-1 md:w-6/12">
             <div className="flex flex-row justify-between">
-              {readonly ? (
-                titleFragment
-              ) : (
-                <Link href={`/hub/requests/${id}`}>{titleFragment}</Link>
-              )}
-
+              <span className="text-lg  font-semibold">Solicitud #{id}</span>
               <Badge color={status?.color} className="text-black mt-2">
                 {status?.name}
               </Badge>
@@ -56,11 +37,23 @@ export const RequestItem = (props: IRequestItemProps) => {
             <p className="italic text-xs mt-0"> Creada el {requestDate}</p>
 
             {!readonly && (
-              <Link href={`/hub/tasks/${id}`}>
-                <p className="underline font-semibold text-primary">
-                  Ir a control diario
-                </p>
-              </Link>
+              <div>
+                {status?.name !== "POR ASIGNAR" && (
+                  <Link href={`/hub/tasks/${id}`}>
+                    <p className="underline font-semibold text-primary">
+                      Ir a control diario
+                    </p>
+                  </Link>
+                )}
+
+                {status?.name === "POR ASIGNAR" && (
+                  <Link href={`/hub/requests/${id}`}>
+                    <p className="underline font-semibold text-primary">
+                      Asignar solicitud
+                    </p>
+                  </Link>
+                )}
+              </div>
             )}
           </div>
 

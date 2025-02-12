@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/login") &&
     AuthService.isValidToken()
   ) {
-    response = NextResponse.redirect(new URL("/hub", request.url));
+    response = NextResponse.redirect(new URL("/hub/requests", request.url));
   }
 
   return response;

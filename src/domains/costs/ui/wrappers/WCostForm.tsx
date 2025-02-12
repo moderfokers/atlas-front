@@ -20,10 +20,10 @@ export interface ICostsOutput {
 }
 
 export const costCenterSchema = z.object({
-  startDate: z.string().datetime({ local: true }).min(1, "requerido"),
-  endDate: z.string().datetime({ local: true }).min(1, "requerido"),
-  name: z.string().min(1, "requerido"),
-  code: z.string().min(1, "requerido"),
+  startDate: z.string().datetime({ local: true }).min(1, "Requerido"),
+  endDate: z.string().datetime({ local: true }).min(1, "Requerido"),
+  name: z.string().min(1, "Requerido"),
+  code: z.string().min(1, "Requerido"),
   id: z.number().optional(),
 });
 
@@ -82,7 +82,7 @@ export const WCostsForm = ({ cost }: IWCostsFormProps) => {
         <div className="flex-auto mb-5">
           <WDate name="endDate" label="Fecha fin" />
         </div>
-        <WSubmit text="Guardar" className="w-fit" icon={<Save size={15} />} />
+        <WSubmit text="GUARDAR" className="w-fit" icon={<Save size={15} />} />
       </div>
     </WForm>
   );

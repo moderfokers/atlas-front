@@ -32,7 +32,6 @@ export const WInput = <
   } & IAbstractInputProps
 ) => {
   const { name, label, placeholder, type = "", className, disabled } = props;
-  console.log(name, disabled);
 
   const { form } = useFormStore(
     useShallow((state) => ({

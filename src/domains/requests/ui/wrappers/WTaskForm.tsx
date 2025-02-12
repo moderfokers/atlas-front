@@ -2,57 +2,21 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { WForm } from "../../../shared/form/ui/wrappers/WForm";
-import { WInput } from "../../../shared/form/ui/wrappers/WInput";
 import { WSubmit } from "../../../shared/form/ui/wrappers/WSubmit";
-
 import { useFormManager } from "@/domains/shared/form/core/hooks/useFormManager";
-import { addRequest } from "../../core/use-cases/addRequest.server";
 import { Save } from "lucide-react";
-
 import { useCrudHandler } from "../../../../hooks/useCrudHandler";
-import { IProject } from "@/domains/projects/ui/wrappers/WProjectForm";
-import {
-  IMachine,
-  IMachineClass,
-  machineFormSchema,
-} from "@/domains/machines/data/machine-entities";
-import { WSelect } from "@/domains/shared/form/ui/wrappers/WSelect";
-import { redirect } from "next/navigation";
-import {
-  IOperator,
-  operatorSchema,
-} from "@/domains/users/ui/wrappers/WUserForm";
-import { costCenterSchema } from "@/domains/costs/ui/wrappers/WCostForm";
+import { IMachine } from "@/domains/machines/data/machine-entities";
+import { IOperator } from "@/domains/users/ui/wrappers/WUserForm";
 import { IGetTaskOuput } from "../../core/use-cases/editRequestView.server";
 import { addTask } from "../../core/use-cases/addTask.server";
-import { IRequest } from "./WRequestForm";
 import { ICost } from "@/domains/costs/data/cost-columns";
 import { Separator } from "@/components/ui/separator";
 import { WSelectList } from "@/domains/shared/form/ui/wrappers/WSelectList";
 import { NavigationService } from "@/services/NavigationService";
-import { userFormSchema } from "@/domains/users/data/user-entites";
-
-const getDefaultTaskValues = (request: IRequest) => {
-  return {
-    requestId: request.id as number,
-    operator: {},
-    machinery: {},
-    costCenter: {},
-  } as ITask;
-};
-
-export const taskSchema = z.object({
-  id: z.number().optional(),
-  requestId: z.number().optional(),
-  operator: z.intersection(operatorSchema, userFormSchema),
-  machinery: machineFormSchema,
-  costCenter: costCenterSchema,
-  // request: z.lazy(() => requestFormSchema.optional()),
-});
-
-export type ITask = z.infer<typeof taskSchema>;
+import { ITaskForm, taskSchemaForm } from "../../data/entities";
+import { getDefaultTaskValues } from "../../core/use-cases/getDefaultTaskValues";
 
 interface IWRequestFormProps extends IGetTaskOuput {}
 
@@ -61,28 +25,25 @@ export const WTaskForm = ({
   operators,
   machineries,
   costCenters,
-  task
 }: IWRequestFormProps) => {
-  const { add } = useCrudHandler<ITask>({
+  const { add } = useCrudHandler<ITaskForm>({
     add: {
       action: addTask,
       onSuccess: {
         handler: () => NavigationService.redirect("/hub/requests"),
-        message: "👍 Solicitud guardada satisfactoriamente",
+        message: "👍 Asignación registrada satisfactoriamente",
       },
     },
   });
 
-  const form = useForm<ITask>({
-    resolver: zodResolver(taskSchema),
+  const form = useForm<ITaskForm>({
+    resolver: zodResolver(taskSchemaForm),
     defaultValues: getDefaultTaskValues(request),
   });
 
   useFormManager(form);
 
-  const onSubmitHandler = async (values: ITask) => {
-    add(values);
-  };
+  const onSubmitHandler = async (values: ITaskForm) => add(values);
 
   return (
     <>
@@ -97,13 +58,12 @@ export const WTaskForm = ({
         </p>
       </div>
       <Separator className="my-4" />
-      <WForm<ITask> onSubmit={onSubmitHandler}>
+      <WForm<ITaskForm> onSubmit={onSubmitHandler}>
         <div className="flex flex-col">
           <div className="flex-auto mb-5">
-            <WSelectList<IOperator>
+            <WSelectList<Partial<IOperator>>
               name="operator"
               label="Operador"
-              // keyValue="operatorId"
               placeholder="Seleccione un operador"
               rows={operators}
               columns={[
@@ -126,7 +86,6 @@ export const WTaskForm = ({
             <WSelectList<IMachine>
               name="machinery"
               label="Maquina"
-              // keyValue="operatorId"
               placeholder="Seleccione una maquina"
               rows={machineries}
               columns={[
@@ -150,7 +109,6 @@ export const WTaskForm = ({
             <WSelectList<ICost>
               name="costCenter"
               label="Centro de costos"
-              // keyValue="operatorId"
               placeholder="Seleccione un centro de costos"
               rows={costCenters}
               columns={[
@@ -165,7 +123,7 @@ export const WTaskForm = ({
               ]}
             />
           </div>
-          <WSubmit text="Guardar" className="w-fit" icon={<Save size={15} />} />
+          <WSubmit text="GUARDAR" className="w-fit" icon={<Save size={15} />} />
         </div>
       </WForm>
     </>

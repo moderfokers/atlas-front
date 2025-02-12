@@ -18,8 +18,8 @@ export interface IClientsOutput {
 }
 
 export const clientFormSchema = z.object({
-  nit: z.string().min(1, "requerido"),
-  name: z.string().min(1, "requerido"),
+  nit: z.string().min(1, "Requerido"),
+  name: z.string().min(1, "Requerido"),
   id: z.number().optional(),
 });
 
@@ -70,7 +70,7 @@ export const WClientForm = ({ client }: IWClientFormProps) => {
         <div className="flex-auto mb-5">
           <WInput name="name" label="Nombre" />
         </div>
-        <WSubmit text="Guardar" className="w-fit" icon={<Save size={15} />} />
+        <WSubmit text="GUARDAR" className="w-fit" icon={<Save size={15} />} />
       </div>
     </WForm>
   );

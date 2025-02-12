@@ -1,10 +1,9 @@
 "use server";
 
-
 import { RequestService } from "@/services/RequestService";
 import { revalidatePath } from "next/cache";
-import { IRequest } from "../../ui/wrappers/WRequestForm";
-import { ITask } from "../../ui/wrappers/WTaskForm";
+import { ITask } from "../../data/entities";
+
 
 export interface ITaskInput extends ITask {}
 

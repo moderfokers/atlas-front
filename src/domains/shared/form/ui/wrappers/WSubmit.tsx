@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button, TButtonVariant } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useShallow } from "zustand/shallow";
 import { useFormStore } from "../../core/hooks/useFormStore";
@@ -10,6 +10,7 @@ interface IWSubmitProps {
   size?: "lg" | "default" | "sm" | "icon" | null | undefined;
   className?: string;
   icon?: TIcon;
+  variant?: TButtonVariant;
 }
 
 export const WSubmit = ({
@@ -17,6 +18,7 @@ export const WSubmit = ({
   size = "lg",
   className,
   icon,
+  variant = "default",
 }: IWSubmitProps) => {
   const { isFetching } = useFormStore(
     useShallow((state) => ({
@@ -30,6 +32,7 @@ export const WSubmit = ({
       type="submit"
       size={size}
       disabled={isFetching}
+      variant={variant}
     >
       {isFetching && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 

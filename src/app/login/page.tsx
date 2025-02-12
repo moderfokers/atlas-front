@@ -6,9 +6,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import logo from "../../../public/atlas.png";
-import heroBack from "../../../public/back.webp";
-import heroBack2 from "../../../public/back2.jpg";
 import heroBack3 from "../../../public/back3.avif";
 import dynamic from "next/dynamic";
 

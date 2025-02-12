@@ -4,19 +4,15 @@ import { Switch } from "@/components/ui/switch";
 
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
 import React from "react";
 import { FieldPath, FieldValues } from "react-hook-form";
 import { useShallow } from "zustand/shallow";
 import { useFormStore } from "../../core/hooks/useFormStore";
-import { cn } from "@/lib/utils";
 
 interface IAbstractInputProps {
   label: string;
@@ -44,8 +40,8 @@ export const WSwitch = <
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 align-middle">
-          <FormLabel className="mr-4" >{label}</FormLabel>
+        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 align-middle w-full">
+          <FormLabel className="mr-4">{label}</FormLabel>
           <FormControl>
             <Switch checked={field.value} onCheckedChange={field.onChange} />
           </FormControl>

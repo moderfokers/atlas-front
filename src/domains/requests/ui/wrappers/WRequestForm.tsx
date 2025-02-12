@@ -4,13 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { WForm } from "../../../shared/form/ui/wrappers/WForm";
-import { WInput } from "../../../shared/form/ui/wrappers/WInput";
+
 import { WSubmit } from "../../../shared/form/ui/wrappers/WSubmit";
 
 import { useFormManager } from "@/domains/shared/form/core/hooks/useFormManager";
 import { addRequest } from "../../core/use-cases/addRequest.server";
 import { Save } from "lucide-react";
-// import { editRequest } from "../../core/use-cases/editRequest.server";
+
 import { useCrudHandler } from "../../../../hooks/useCrudHandler";
 import {
   IProject,
@@ -21,10 +21,8 @@ import {
   machineClassSchema,
 } from "@/domains/machines/data/machine-entities";
 import { WSelect } from "@/domains/shared/form/ui/wrappers/WSelect";
-import { redirect } from "next/navigation";
 import { NavigationService } from "@/services/NavigationService";
-
-import { taskSchema } from "./WTaskForm";
+import { taskSchema } from "../../data/entities";
 
 export interface IRequestsOutput {
   requests: IRequest[];
@@ -108,7 +106,7 @@ export const WRequestForm = ({
             options={machineryClasses}
           />
         </div>
-        <WSubmit text="Guardar" className="w-fit" icon={<Save size={15} />} />
+        <WSubmit text="GUARDAR" className="w-fit" icon={<Save size={15} />} />
       </div>
     </WForm>
   );

@@ -1,7 +1,6 @@
 import { PageTitle } from "@/components/ui/page-title";
-import { ITask } from "@/domains/requests/ui/wrappers/WTaskForm";
+import { ServerError } from "@/components/ui/server-error";
 import { getEditTaskView } from "@/domains/tasks/core/use-cases/getEditTaskView.server";
-import { getTask } from "@/domains/tasks/core/use-cases/getTask";
 import WDailyForm from "@/domains/tasks/ui/wrappers/WDailyForm";
 
 interface IEditTaskPageProps {
@@ -13,7 +12,7 @@ interface IEditTaskPageProps {
 export default async function EditTaskPage({ params }: IEditTaskPageProps) {
   const response = await getEditTaskView(params.id);
 
-  if (!response?.data) return;
+  if (!response?.data) return <ServerError error={response?.error} />;
 
   return (
     <div className="mt-6">

@@ -12,7 +12,7 @@ import {
 import { useFormStore } from "../../core/hooks/useFormStore";
 import { useShallow } from "zustand/shallow";
 import { cn, isStringArray } from "@/lib/utils";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Table,
   TableBody,

@@ -4,10 +4,11 @@ import React from "react";
 import { FieldValues, FormProvider } from "react-hook-form";
 import { useShallow } from "zustand/shallow";
 import { useFormStore } from "../../core/hooks/useFormStore";
+import { DevFormConsole } from "../components/DevFormConsole";
 
 interface IAbstractFormProps<TValues extends FieldValues> {
   children: React.ReactNode;
-  onSubmit: (values: TValues) => void;
+  onSubmit: (values: TValues, event?: any) => void;
 }
 
 export const WForm = <TValues extends FieldValues>(
@@ -20,7 +21,8 @@ export const WForm = <TValues extends FieldValues>(
     }))
   );
 
-  const onSubmitHandler = async (values: TValues) => {
+  const onSubmitHandler = async (values: TValues, ...args) => {
+    console.log(args);
     onSubmit(values);
   };
 
@@ -29,9 +31,7 @@ export const WForm = <TValues extends FieldValues>(
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmitHandler)}>{children}</form>
-      {/* <code>
-        <pre>{JSON.stringify(form.formState.errors, null, 2)}</pre>
-      </code> */}
+      <DevFormConsole form={form} />
     </FormProvider>
   );
 };

@@ -9,8 +9,6 @@ import { WSubmit } from "../../../shared/form/ui/wrappers/WSubmit";
 
 import { useFormManager } from "@/domains/shared/form/core/hooks/useFormManager";
 import { addProject } from "../../core/use-cases/addProject.server";
-import { useToast } from "@/hooks/useToast";
-import { redirect } from "next/navigation";
 import { Save } from "lucide-react";
 import { editProject } from "../../core/use-cases/editProject.server";
 import {
@@ -22,6 +20,7 @@ import { WDate } from "@/domains/shared/form/ui/wrappers/WDate";
 import { WSelect } from "@/domains/shared/form/ui/wrappers/WSelect";
 
 import { useCrudHandler } from "@/hooks/useCrudHandler";
+import { useToast } from "@/hooks/useToast";
 
 export interface IProjectsOutput {
   projects: IProject[];
@@ -29,10 +28,10 @@ export interface IProjectsOutput {
 
 export const projectSchema = z.object({
   id: z.number().optional(),
-  contractNumber: z.string().min(1, "requerido"),
-  goal: z.string().min(1, "requerido"),
-  startDate: z.string().datetime({ local: true }).min(1, "requerido"),
-  endDate: z.string().datetime({ local: true }).min(1, "requerido"),
+  contractNumber: z.string().min(1, "Requerido"),
+  goal: z.string().min(1, "Requerido"),
+  startDate: z.string().datetime({ local: true }).min(1, "Requerido"),
+  endDate: z.string().datetime({ local: true }).min(1, "Requerido"),
   client: clientFormSchema,
 });
 
@@ -109,7 +108,7 @@ export const WProjectForm = ({ project, clients }: IWProjectFormProps) => {
           />
         </div>
 
-        <WSubmit text="Guardar" className="w-fit" icon={<Save size={15} />} />
+        <WSubmit text="GUARDAR" className="w-fit" icon={<Save size={15} />} />
       </div>
     </WForm>
   );

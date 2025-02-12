@@ -163,7 +163,7 @@ export const WUserForm = ({ user, roles }: IWUserFormProps) => {
           </div>
         )}
 
-        <WSubmit text="Guardar" className="w-fit" icon={<Save size={15} />} />
+        <WSubmit text="GUARDAR" className="w-fit" icon={<Save size={15} />} />
       </div>
     </WForm>
   );

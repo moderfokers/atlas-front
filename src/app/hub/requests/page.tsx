@@ -1,11 +1,6 @@
 import React from "react";
 
-import { Button } from "@/components/ui/button";
-
-import Link from "next/link";
-import { Plus } from "lucide-react";
 import { PageTitle } from "@/components/ui/page-title";
-import { getRequests } from "@/domains/requests/core/use-cases/getRequests";
 import { RequestStoreProvider } from "@/domains/requests/data/RequestProvider";
 import { WRequestsList } from "@/domains/requests/ui/wrappers/WRequestsList";
 import { WRequestsFilter } from "@/domains/requests/ui/wrappers/WRequestsFilter";

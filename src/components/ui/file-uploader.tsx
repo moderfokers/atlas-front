@@ -16,19 +16,36 @@ interface IFileUploaderProps
   label: string;
   className?: string;
   src?: string;
+  id: string;
 }
 
 export const FileUploader = React.forwardRef<
   HTMLInputElement,
   IFileUploaderProps
->(({ label, className, src, ...props }, ref) => {
+>(({ label, className, src: _src, onChange, ...props }, ref) => {
+  const [src, setSrc] = React.useState(_src);
+
+  React.useEffect(() => setSrc(_src), [_src]);
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = ({ target }) => setSrc(target?.result as string);
+    reader.readAsDataURL(file);
+
+    if (onChange) onChange(e);
+  };
+
   return (
     <div className={cn(className, "flex  flex-col w-full")}>
       <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2">
         {label}
       </span>
       <Label
-        htmlFor="file"
+        htmlFor={props.id}
         className="flex flex-col items-center justify-center w-full h-30 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         {src && (
@@ -48,11 +65,11 @@ export const FileUploader = React.forwardRef<
         )}
 
         <Input
-          className=" hidden"
+          className="hidden"
           ref={ref}
-          id="file"
           type="file"
           accept="image/*"
+          onChange={onChangeHandler}
           {...props}
         />
       </Label>

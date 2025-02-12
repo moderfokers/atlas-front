@@ -1,6 +1,7 @@
 import { IFetchResponse } from "@/services/RequestService";
 import { IWRequestView } from "../../ui/wrappers/WRequestsList";
-import { ITask } from "../../ui/wrappers/WTaskForm";
+import { ITask } from "../entities";
+
 
 export const transformTasksTask = (
   requestViewResponse: IFetchResponse<IWRequestView>

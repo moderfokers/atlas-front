@@ -36,7 +36,7 @@ export const DailyCalendarSelector = ({
     );
 
   return (
-    <>
+    <div>
       <Calendar
         mode="single"
         selected={date}
@@ -55,11 +55,11 @@ export const DailyCalendarSelector = ({
           isDone: "bg-green-300 rounded-none",
         }}
       />
-      <span className="font-semibold my-4">
+      <span className="font-semibold m-2">
         {date
           ? `La fecha seleccionada es ${buildHumanDate(date)} ↓ `
           : "↑ Seleccione una fecha primero"}
       </span>
-    </>
+    </div>
   );
 };

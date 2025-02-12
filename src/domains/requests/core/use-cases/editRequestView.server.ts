@@ -2,14 +2,11 @@
 
 import { RequestService } from "@/services/RequestService";
 import { IRequest } from "../../ui/wrappers/WRequestForm";
-import { IProject } from "@/domains/projects/ui/wrappers/WProjectForm";
-import {
-  IMachine,
-  IMachineClass,
-} from "@/domains/machines/data/machine-entities";
+import { IMachine } from "@/domains/machines/data/machine-entities";
 import { IOperator } from "@/domains/users/ui/wrappers/WUserForm";
 import { ICost } from "@/domains/costs/data/cost-columns";
-import { ITask } from "../../ui/wrappers/WTaskForm";
+import { ITask } from "../../data/entities";
+
 
 export interface IGetTaskOuput {
   operators: IOperator[];
