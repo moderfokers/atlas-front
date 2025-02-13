@@ -13,7 +13,7 @@ export default async function MachinesPage() {
   const machines = (await getMachines()).data || [];
 
   return (
-    <div className="flex-row mt-6">
+    <div className="flex-row">
       <PageTitle>Maquinas</PageTitle>
       <div className="mt-6">
         <WMachinesTable machines={machines} />

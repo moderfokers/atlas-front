@@ -9,7 +9,7 @@ export default async function UsersPage() {
   const users = (await getUsers()).data || [];
 
   return (
-    <div className="flex-row mt-6">
+    <div className="flex-row">
       <PageTitle>Usuarios</PageTitle>
       <div className="mt-6">
         <WUsersTable users={users} />

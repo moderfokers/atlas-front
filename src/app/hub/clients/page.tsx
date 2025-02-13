@@ -9,7 +9,7 @@ export default async function ClientsPage() {
   const clients = (await getClients()).data || [];
 
   return (
-    <div className="flex-row mt-6">
+    <div className="flex-row">
       <PageTitle>Clientes</PageTitle>
       <div className="mt-6">
         <WClientsTable clients={clients} />

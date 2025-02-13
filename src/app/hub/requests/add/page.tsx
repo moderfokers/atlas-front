@@ -9,7 +9,7 @@ export default async function AddRequestPage() {
 
   return (
     <div className="mt-6">
-      <PageTitle>Nuevo requeste</PageTitle>
+      <PageTitle>Nueva solicitud</PageTitle>
       <WRequestForm {...result.data} />
     </div>
   );

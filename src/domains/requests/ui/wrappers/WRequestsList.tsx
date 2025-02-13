@@ -31,13 +31,13 @@ export const WRequestsList = () => {
   const onCloseRequestHandler = (request: IRequest) => close(request);
 
   return (
-    <div className="h-[calc(100vh-280px)] overflow-y-scroll mb-6">
+    <div className="mb-6">
       {(requests || []).map((request) => (
         <RequestItem
           onCloseRequest={onCloseRequestHandler}
           key={request.id}
           {...request}
-          className="mb-6"
+          className="mb-2"
         />
       ))}
     </div>

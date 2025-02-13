@@ -15,7 +15,7 @@ export default async function RequestsPage() {
   const { requests, filters } = result.data;
 
   return (
-    <div className="flex-row mt-6">
+    <div className="flex-row">
       <PageTitle>Solicitudes</PageTitle>
       <div className="mt-6">
         <RequestStoreProvider requests={requests}>

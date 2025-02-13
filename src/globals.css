@@ -28,14 +28,15 @@ body {
 
 @layer base {
   :root {
-    --background: 210 100% 98%; /* Close to #C1F4FC */
-    --foreground: 210 90% 10%; /* Darker blue for contrast */
-    --card: 210 100% 98%; /* Same as background */
+    --background: 180 0% 100%;
+    --foreground: 210 90% 10%;
+
+    --card: 180 0% 100%; /* Same as background */
     --card-foreground: 210 90% 10%;
-    --popover: 210 100% 98%;
+    --popover: 180 0% 100%;
     --popover-foreground: 210 90% 10%;
 
-    --primary: 204 79% 45%; /* #1885C5 */
+    --primary: 212 74% 25%; /* #1885C5 */
     --primary-foreground: 210 40% 98%; /* Light for contrast */
 
     --secondary: 196 73% 50%; /* #24ACE1 */
@@ -52,7 +53,6 @@ body {
 
     --success: 120 70% 40%; /* Keep warning color */
     --success-foreground: 79.6 89.1% 89.2%;
-
 
     --destructive: 0 84.2% 60.2%; /* Keep original */
     --destructive-foreground: 210 40% 98%;
@@ -154,5 +154,5 @@ body {
 }
 
 .disabled-pointer {
-  pointer-events: none
+  pointer-events: none;
 }

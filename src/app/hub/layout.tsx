@@ -6,20 +6,24 @@ import { WFooter } from "@/domains/shared/menu/ui/wrappers/WFooter";
 
 import { MenuBread } from "@/domains/shared/menu/ui/components/MenuBread";
 import { WUserInitializator } from "@/domains/shared/auth/ui/wrappers/WUserInitializator";
+import { Separator } from "@radix-ui/react-select";
+import { AuthService } from "@/services/AuthService";
 
 export default function HubLayout({ children }: { children: React.ReactNode }) {
+  const userMetadata = AuthService.getUserMetadata();
   return (
     <SidebarProvider>
       <WUserInitializator />
       <Sidebar>
-        <WHeader />
+        {/* <WHeader /> */}
+
         <WMenu />
-        <WFooter />
+        {/* <WFooter /> */}
       </Sidebar>
-      <main className="h-screen w-full p-4 md:px-6  ">
-        <MenuBread />
-        {children}
-      </main>
+      <div className="flex-flex-col w-full">
+        <MenuBread userMetadata={userMetadata} />
+        <main className="h-screen w-full p-4 md:px-6 bg-gray-50  ">{children}</main>
+      </div>
     </SidebarProvider>
   );
 }

@@ -13,7 +13,7 @@ export default async function ProjectsPage() {
   const projects = (await getProjects()).data || [];
 
   return (
-    <div className="flex-row mt-6">
+    <div className="flex-row">
       <PageTitle>Proyectos</PageTitle>
       <div className="mt-6">
         <WProjectsTable projects={projects} />

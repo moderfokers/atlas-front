@@ -15,7 +15,7 @@ export default async function CostsPage() {
   const costs = (await getCosts()).data || [];
 
   return (
-    <div className="flex-row mt-6">
+    <div className="flex-row">
       <PageTitle>Costos</PageTitle>
       <div className="mt-6">
         <WCostsTable costs={costs} />

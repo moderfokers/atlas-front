@@ -59,21 +59,12 @@ export const WRequestsFilter = ({
   };
 
   return (
-    <div className={cn("flex flex-row items-end", className)}>
-      <Button
-        variant="outline"
-        size="sm"
-        className="mr-6"
-        disabled={noFilters}
-        onClick={onClearHandler}
-      >
-        <Eraser />
-      </Button>
+    <div className={cn("flex flex-col md:flex-row", className)}>
       <FilterSelect<IRequestStatus>
         label="Estado"
         options={statuses}
         onChange={statusChangeHandler}
-        className="mr-6"
+        className="mb-2 md:mr-4"
         value={filters.status?.id}
       />
       <FilterSelect<IProject>
@@ -81,15 +72,26 @@ export const WRequestsFilter = ({
         options={projects}
         valueKey="contractNumber"
         onChange={projectsChangeHandler}
-        className="mr-6"
+        className="mb-2 md:mr-4"
         value={filters.project?.id}
       />
       <FilterSelect<IMachineClass>
+        className="mb-2 md:mr-4"
         label="Tipo de maquina"
         options={machineClasses}
         onChange={machineClassChangeHandler}
         value={filters.machineClass?.id}
       />
+      <div className="flex items-end">
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={noFilters}
+          onClick={onClearHandler}
+        >
+          <Eraser />
+        </Button>
+      </div>
     </div>
   );
 };
