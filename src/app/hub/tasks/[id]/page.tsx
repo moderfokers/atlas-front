@@ -1,6 +1,7 @@
 import { PageTitle } from "@/components/ui/page-title";
 import { ServerError } from "@/components/ui/server-error";
 import { getEditTaskView } from "@/domains/tasks/core/use-cases/getEditTaskView.server";
+import { DailyStoreProvider } from "@/domains/tasks/data/stores/daily-store/DailyStoreProvider";
 import WDailyForm from "@/domains/tasks/ui/wrappers/WDailyForm";
 
 interface IEditTaskPageProps {
@@ -15,9 +16,11 @@ export default async function EditTaskPage({ params }: IEditTaskPageProps) {
   if (!response?.data) return <ServerError error={response?.error} />;
 
   return (
-    <div className="mt-6">
-      <PageTitle>Control diario</PageTitle>
-      <WDailyForm {...response.data} />
-    </div>
+    <DailyStoreProvider>
+      <div className="mt-6">
+        <PageTitle>Control diario</PageTitle>
+        <WDailyForm {...response.data} />
+      </div>
+    </DailyStoreProvider>
   );
 }

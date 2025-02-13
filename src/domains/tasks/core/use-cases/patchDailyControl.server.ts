@@ -1,7 +1,7 @@
 "use server";
 
 import { RequestService } from "@/services/RequestService";
-import { IDailyControl } from "../../ui/wrappers/WDailyForm";
+import { IDailyControl } from "../../data/entities";
 
 export interface IDailyControlInput {
   dailyControl: IDailyControl;

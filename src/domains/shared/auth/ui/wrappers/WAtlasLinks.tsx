@@ -47,6 +47,7 @@ const getModulePermissions = (): IModule => {
 
 export const WAddLink = ({ className }: IWLinkProps) => {
   const { add } = getModulePermissions();
+  if (!add) return;
   const { permission, href } = add;
 
   return (

@@ -24,8 +24,7 @@ import {
   machineDefaultValues,
 } from "../../data/machine-entities";
 import { WSwitch } from "@/domains/shared/form/ui/wrappers/WSwitch";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+import { NavigationService } from "@/services/NavigationService";
 
 export interface IWMachineFormProps {
   machinery?: IMachine;
@@ -47,12 +46,14 @@ export const WMachineForm = ({
       action: addMachine,
       onSuccess: {
         message: "👍 Maquina guardada satisfactoriamente",
+        handler: () => NavigationService.redirect("/hub/machines", 1000),
       },
     },
     edit: {
       action: editMachine,
       onSuccess: {
         message: "👍 Maquina modificada satisfactoriamente",
+        handler: () => NavigationService.redirect("/hub/machines", 1000),
       },
     },
   });

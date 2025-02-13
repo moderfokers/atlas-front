@@ -21,6 +21,7 @@ import {
 import { WSelect } from "@/domains/shared/form/ui/wrappers/WSelect";
 import React from "react";
 import { deepMerge } from "@/lib/utils";
+import { NavigationService } from "@/services/NavigationService";
 
 export interface IUsersOutput {
   users: IUser[];
@@ -47,22 +48,14 @@ export const WUserForm = ({ user, roles }: IWUserFormProps) => {
       action: addUser,
       onSuccess: {
         message: "👍 Usuario guardado satisfactoriamente",
-        handler: (result) => {
-          if (result.status < 400) {
-            window.location.href = "/hub/users";
-          }
-        },
+        handler: () => NavigationService.redirect("/hub/users", 1000),
       },
     },
     edit: {
       action: editUser,
       onSuccess: {
         message: "👍 Usuario modificado satisfactoriamente",
-        handler: (result) => {
-          if (result.status < 400) {
-            window.location.href = "/hub/users";
-          }
-        },
+        handler: () => NavigationService.redirect("/hub/users", 1000),
       },
     },
   });

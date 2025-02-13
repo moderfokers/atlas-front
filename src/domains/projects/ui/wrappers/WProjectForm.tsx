@@ -21,6 +21,7 @@ import { WSelect } from "@/domains/shared/form/ui/wrappers/WSelect";
 
 import { useCrudHandler } from "@/hooks/useCrudHandler";
 import { useToast } from "@/hooks/useToast";
+import { NavigationService } from "@/services/NavigationService";
 
 export interface IProjectsOutput {
   projects: IProject[];
@@ -47,13 +48,15 @@ export const WProjectForm = ({ project, clients }: IWProjectFormProps) => {
     add: {
       action: addProject,
       onSuccess: {
-        message: "👍 Projecto guardado satisfactoriamente",
+        message: "👍 Proyecto guardado satisfactoriamente",
+        handler: () => NavigationService.redirect("/hub/projects", 1000),
       },
     },
     edit: {
       action: editProject,
       onSuccess: {
-        message: "👍 Projecto modificado satisfactoriamente",
+        message: "👍 Proyecto modificado satisfactoriamente",
+        handler: () => NavigationService.redirect("/hub/projects", 1000),
       },
     },
   });

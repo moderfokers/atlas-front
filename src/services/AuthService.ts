@@ -4,7 +4,6 @@ import { ConfigService } from "./ConfigService";
 import { redirect } from "next/navigation";
 import { IAuthOutput } from "@/domains/shared/auth/core/use-cases/authenticate.server";
 
-
 class AuthServiceClass {
   private getAuthToken() {
     return cookies().get(ConfigService.getInstance().accessTokenKey || "")
@@ -47,7 +46,7 @@ class AuthServiceClass {
     );
     cookies().set("user_metadata", JSON.stringify(authOutput));
 
-    redirect("/hub");
+    redirect("/hub/requests");
   }
 
   public getUserMetadata(): IAuthOutput {

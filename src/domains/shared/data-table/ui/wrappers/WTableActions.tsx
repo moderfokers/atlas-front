@@ -9,8 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { CellContext } from "@tanstack/react-table";
-import { FilePenLine, MoreHorizontal, X } from "lucide-react";
-import Link from "next/link";
+import { MoreHorizontal, X } from "lucide-react";
 import { IActionsConfig } from "./WDataTable";
 import { useCrudHandler } from "@/hooks/useCrudHandler";
 import { WEditLink } from "@/domains/shared/auth/ui/wrappers/WAtlasLinks";

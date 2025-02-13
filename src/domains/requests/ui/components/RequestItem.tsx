@@ -4,10 +4,13 @@ import { IRequest } from "../wrappers/WRequestForm";
 import { Badge } from "@/components/ui/badge";
 
 import Link from "next/link";
+import { WAuthLock } from "@/domains/shared/auth/ui/wrappers/WAuthLock";
+import { ITask, ITaskForm } from "../../data/entities";
 
 interface IRequestItemProps extends IRequest {
   className?: string;
   readonly?: boolean;
+  onCloseRequest?: (request: IRequest) => void;
 }
 
 export const RequestItem = (props: IRequestItemProps) => {
@@ -52,6 +55,23 @@ export const RequestItem = (props: IRequestItemProps) => {
                       Asignar solicitud
                     </p>
                   </Link>
+                )}
+
+                {status?.name === "ASIGNADA" && (
+                  <WAuthLock permission="request_close_event" type="hide">
+                    <span
+                      role="button"
+                      className="cursor-pointer"
+                      onClick={() =>
+                        props.onCloseRequest &&
+                        props.onCloseRequest({ id } as IRequest)
+                      }
+                    >
+                      <p className="underline font-semibold text-red-600">
+                        Cerrar asignación
+                      </p>
+                    </span>
+                  </WAuthLock>
                 )}
               </div>
             )}

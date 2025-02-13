@@ -1,6 +1,6 @@
-import { IDailyControl } from "../../ui/wrappers/WDailyForm";
+import { IDailyControl } from "../../data/entities";
 
-export const bulidDailyForm = (_values: IDailyControl, taskId: number) => {
+export const buildDailyForm = (_values: IDailyControl, taskId: number) => {
   const formData = new FormData();
 
   const { initialCounterImage, finalCounterImage, ...values } = _values;
@@ -8,18 +8,9 @@ export const bulidDailyForm = (_values: IDailyControl, taskId: number) => {
   const newValues = {
     ...values,
     taskId,
-    isDraft: Boolean(values?.isDraft),
     spreed: `${values.spreed}`,
     date: values.date?.toISOString(),
   };
-
-  debugger;
-
-  // values.taskId = task?.id;
-  // values.isDraft = Boolean(values?.isDraft);
-
-  // values.initialCounterImage = null;
-  // values.finalCounterImage = null;
 
   const valuesBlob = new Blob([JSON.stringify(newValues)], {
     type: "application/json",

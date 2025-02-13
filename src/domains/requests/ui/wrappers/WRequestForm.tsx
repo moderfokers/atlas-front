@@ -68,7 +68,7 @@ export const WRequestForm = ({
       action: addRequest,
       onSuccess: {
         handler: () => {
-          NavigationService.redirect("/hub/requests");
+          NavigationService.redirect("/hub/requests", 1000);
         },
         message: "👍 Solicitud guardada satisfactoriamente",
       },

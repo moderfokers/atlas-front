@@ -15,10 +15,14 @@ export interface WAuthLockProps {
   permission: string;
   children: ReactElement;
   className?: string;
+  type?: "hide" | "tooltip";
   // type: "href" | "onClick";
 }
 
-const modifyChildren = (element: React.ReactNode, customClassName = ""): React.ReactNode => {
+const modifyChildren = (
+  element: React.ReactNode,
+  customClassName = ""
+): React.ReactNode => {
   // Check if the element is a valid React element
   if (!React.isValidElement(element)) return element;
 
@@ -43,13 +47,19 @@ const modifyChildren = (element: React.ReactNode, customClassName = ""): React.R
   });
 };
 
-export const WAuthLock = ({ children, permission, className }: WAuthLockProps) => {
+export const WAuthLock = ({
+  children,
+  permission,
+  className,
+  type = "tooltip",
+}: WAuthLockProps) => {
   const { permissions } = useAuthStore(
     useShallow((state) => state.userMetadata)
   );
 
   const isAllowed = (permissions || []).includes(permission);
   if (isAllowed) return children;
+  if (type === "hide") return null;
 
   const newChildren = modifyChildren(children, className);
 

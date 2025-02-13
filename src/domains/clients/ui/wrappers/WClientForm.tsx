@@ -12,6 +12,7 @@ import { addClient } from "../../core/use-cases/addClient.server";
 import { Save } from "lucide-react";
 import { editClient } from "../../core/use-cases/editClient.server";
 import { useCrudHandler } from "../../../../hooks/useCrudHandler";
+import { NavigationService } from "@/services/NavigationService";
 
 export interface IClientsOutput {
   clients: IClient[];
@@ -35,12 +36,14 @@ export const WClientForm = ({ client }: IWClientFormProps) => {
       action: addClient,
       onSuccess: {
         message: "👍 Cliente guardado satisfactoriamente",
+        handler: () => NavigationService.redirect("/hub/clients", 1000),
       },
     },
     edit: {
       action: editClient,
       onSuccess: {
         message: "👍 Cliente modificado satisfactoriamente",
+        handler: () => NavigationService.redirect("/hub/clients", 1000),
       },
     },
   });
