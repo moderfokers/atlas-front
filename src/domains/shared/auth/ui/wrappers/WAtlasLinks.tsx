@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { WAuthLock } from "./WAuthLock";
 import Link from "next/link";
-import { FilePenLine, LucideProps, Plus } from "lucide-react";
+import { FilePenLine, LucideProps, Plus, X } from "lucide-react";
 import React, { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 export interface IWLinkProps {
   className?: string;
   href?: string;
+  onClick?: () => void;
 }
 
 export interface IModulePermission {
@@ -18,6 +20,7 @@ export interface IModulePermission {
 
 export interface IModule {
   add: IModulePermission;
+  delete: Omit<IModulePermission, "href">;
   edit: Omit<IModulePermission, "href">;
 }
 
@@ -41,6 +44,9 @@ const getModulePermissions = (): IModule => {
     },
     edit: {
       permission: `${_module}_edit_event`,
+    },
+    delete: {
+      permission: `${_module}_delete_event`,
     },
   };
 };
@@ -73,6 +79,24 @@ export const WEditLink = ({ className, href }: IWLinkProps) => {
 
         <p className="ml-4">Editar</p>
       </Link>
+    </WAuthLock>
+  );
+};
+
+export const WDeleteButton = ({ className, onClick }: IWLinkProps) => {
+  const { delete: _delete } = getModulePermissions();
+  if (!_delete) return;
+  const { permission } = _delete;
+
+  return (
+    <WAuthLock permission={permission}>
+      <button
+        className={cn(className, "bg-transparent text-black")}
+        onClick={onClick}
+      >
+        <X className="mt-[1px]" />
+        <p className="ml-4">Eliminar</p>
+      </button>
     </WAuthLock>
   );
 };

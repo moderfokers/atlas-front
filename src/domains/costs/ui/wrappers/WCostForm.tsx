@@ -14,6 +14,7 @@ import { editCosts } from "../../core/use-cases/editCost.server";
 import { addCosts } from "../../core/use-cases/addCost.server";
 import { WDate } from "@/domains/shared/form/ui/wrappers/WDate";
 import { useCrudHandler } from "@/hooks/useCrudHandler";
+import { NavigationService } from "@/services/NavigationService";
 
 export interface ICostsOutput {
   costs: ICost[];
@@ -27,6 +28,19 @@ export const costCenterSchema = z.object({
   id: z.number().optional(),
 });
 
+export const costCenterFormSchema = costCenterSchema.superRefine(
+  (data, ctx) => {
+    if (new Date(data.startDate).getTime() > new Date(data.endDate).getTime()) {
+      return ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "La fecha final debe ser mayor a la fecha de inicio",
+        path: ["startDate"],
+      });
+    }
+    return true;
+  }
+);
+
 export type TFormData = z.infer<typeof costCenterSchema>;
 
 interface IWCostsFormProps {
@@ -35,7 +49,7 @@ interface IWCostsFormProps {
 
 export const WCostsForm = ({ cost }: IWCostsFormProps) => {
   const form = useForm<TFormData>({
-    resolver: zodResolver(costCenterSchema),
+    resolver: zodResolver(costCenterFormSchema),
     defaultValues: cost || {
       code: "",
       name: "",
@@ -49,12 +63,14 @@ export const WCostsForm = ({ cost }: IWCostsFormProps) => {
       action: addCosts,
       onSuccess: {
         message: "👍 Centro de costo guardado satisfactoriamente",
+        handler: () => NavigationService.redirect("/hub/costs", 1000),
       },
     },
     edit: {
       action: editCosts,
       onSuccess: {
         message: "👍 Centro de costo modificado satisfactoriamente",
+        handler: () => NavigationService.redirect("/hub/costs", 1000),
       },
     },
   });

@@ -70,8 +70,9 @@ export const MenuBread = ({ userMetadata }: { userMetadata: IAuthOutput }) => {
           src={AtlasPowered}
           width={0}
           height={0}
-          className="w-fit"
+          className="w-[80px]"
         />
+
         <UserMenu userMetadata={userMetadata} />
       </div>
       <div ref={headerRef2} className="bg-primary w-full hidden h-[36px]" />

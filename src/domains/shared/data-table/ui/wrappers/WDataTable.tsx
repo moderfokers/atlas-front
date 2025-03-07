@@ -69,7 +69,7 @@ export function WDataTable<TData, TValue>({
 
   return (
     <>
-      <div className="rounded-md border w-full">
+      <div className="rounded-md border w-full overflow-x-scroll">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

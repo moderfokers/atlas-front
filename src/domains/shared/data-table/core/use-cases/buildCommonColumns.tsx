@@ -8,7 +8,8 @@ export const buildCommonColumns = <TData, TValue>(
   columns: ColumnDef<TData, TValue>[],
   actionsConfig: IActionsConfig<TData>
 ) => {
-  const firstColumns: ColumnDef<TData, TValue>[] = [getSelectColumn()];
+  // const firstColumns: ColumnDef<TData, TValue>[] = [getSelectColumn()];
+  const firstColumns: ColumnDef<TData, TValue>[] = [];
 
   const lastColumns: ColumnDef<TData, TValue>[] = [
     getActionColumn(actionsConfig),

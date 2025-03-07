@@ -16,7 +16,7 @@ const actionsConfig: IActionsConfig<IClient> = {
       message: "Cliente eliminado satisfactoriamente",
     },
   },
-  editLink: "/hub/client/:id",
+  editLink: "/hub/clients/:id",
 };
 
 export const WClientsTable = ({ clients }: IWClientTablesProps) => {

@@ -12,7 +12,10 @@ import { CellContext } from "@tanstack/react-table";
 import { MoreHorizontal, X } from "lucide-react";
 import { IActionsConfig } from "./WDataTable";
 import { useCrudHandler } from "@/hooks/useCrudHandler";
-import { WEditLink } from "@/domains/shared/auth/ui/wrappers/WAtlasLinks";
+import {
+  WDeleteButton,
+  WEditLink,
+} from "@/domains/shared/auth/ui/wrappers/WAtlasLinks";
 
 export interface IWTableActionsProps<TData>
   extends CellContext<TData, unknown> {
@@ -51,9 +54,11 @@ export const WTableActions = <TData,>({
           />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => _delete(row.original)}>
-          <X />
-          <p className="ml-2">Eliminar</p>
+        <DropdownMenuItem>
+          <WDeleteButton
+            onClick={() => _delete(row.original)}
+            className="flex inline-flex"
+          />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
