@@ -7,7 +7,7 @@ export const config: IAtlasConfig = {
     // baseUrl: "http://192.168.2.13:8080",
     // baseUrl: "http://192.168.2.13:8080",
     baseUrl:
-      "https://ciam-server-dev-deh8g4f6gpb0fmcp.eastus-01.azurewebsites.net",
+      "https://ciam-server-emfdb8djfycug5ba.eastus-01.azurewebsites.net",
     // baseUrl: "https://320a-186-29-180-207.ngrok-free.app",
     cache: "no-store",
     // baseUrl: "http://localhost:8080",
